@@ -1,4 +1,4 @@
-package com.gestionDeportiva.modulos;
+package com.gestionDeportiva;
 
 public class Jugador extends Usuario {
     private String zona;

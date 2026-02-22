@@ -1,7 +1,8 @@
-package com.gestionDeportiva.modulos.notificaciones;
+package com.gestionDeportiva;
 import java.sql.*;
 
-import com.gestionDeportiva.modulos.Jugador;
+import com.gestionDeportiva.modulos.notificaciones.ConexionDB;
+import com.gestionDeportiva.modulos.notificaciones.dao.JugadorDAO;
 import com.gestionDeportiva.modulos.notificaciones.facade.FacadeNotificador;
 
 public class test {
