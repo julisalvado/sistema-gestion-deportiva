@@ -1,62 +1,23 @@
 package com.gestionDeportiva;
-import java.sql.*;
 
-import com.gestionDeportiva.modulos.notificaciones.ConexionDB;
-import com.gestionDeportiva.modulos.notificaciones.dao.JugadorDAO;
+import com.gestionDeportiva.modulos.notificaciones.MedioContacto;
 import com.gestionDeportiva.modulos.notificaciones.facade.FacadeNotificador;
+
 
 public class test {
     public static void main(String[] args) {
-        crearTablasSiNoExisten();
-        JugadorDAO dao = new JugadorDAO();
-        FacadeNotificador facade = new FacadeNotificador();
-
-        // 1. REGISTRO (Usamos cualquier texto como token)
-        Jugador messi = new Jugador("Lionel", "leo@afa.com", "123");
-        String tokenPrueba = "token_simulado_12345"; 
-
-        dao.guardarJugadorCompleto(messi, tokenPrueba);
+        // 1. Creamos el objeto directamente en memoria
+        Usuario miUsuario = new Jugador("TuNombre", "tu@email.com", "pass123");
         
-        // 2. RECUPERACIÓN (Para demostrar que el DAO funciona)
-        Jugador jugadorEnDB = dao.obtenerJugadorCompleto(messi.getIdUsuario());
+        // 2. Le asignamos un "Token" de prueba manualmente
+        // Como ya no hay DAO, simulamos que el usuario tiene un medio de contacto
+        MedioContacto medioFCM = new MedioContacto("FIREBASE", "token_de_prueba_123");
+        miUsuario.agregarMedio(medioFCM);
 
-        // 3. NOTIFICACIÓN
-        System.out.println("\n=== INICIANDO NOTIFICACIÓN ESTRATÉGICA ===");
-        facade.notificar(jugadorEnDB, "¡Tu partido empieza en 15 minutos!");
-    }
-
-    // El método que ya tenías para crear las tablas
-    public static void crearTablasSiNoExisten() {
-        // ... aquí va el código que te pasé antes ...
-        String sqlUsuarios = "CREATE TABLE IF NOT EXISTS usuarios (" +
-                            "id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                            "username TEXT NOT NULL, " +
-                            "email TEXT NOT NULL, " +
-                            "password TEXT NOT NULL);";
-
-        String sqlJugadores = "CREATE TABLE IF NOT EXISTS jugadores (" +
-                            "id_usuario INTEGER PRIMARY KEY, " +
-                            "zona TEXT, " +
-                            "deporte_favorito TEXT, " +
-                            "FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE);";
-
-        String sqlMedios = "CREATE TABLE IF NOT EXISTS medios_contacto (" +
-                        "id_contacto INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "id_usuario INTEGER, " +
-                        "tipo_medio TEXT, " +
-                        "valor TEXT, " +
-                        "FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE);";
-
-        try (Connection conn = ConexionDB.getConexion(); 
-            Statement stmt = conn.createStatement()) {
-            
-            stmt.execute(sqlUsuarios);
-            stmt.execute(sqlJugadores);
-            stmt.execute(sqlMedios);
-            System.out.println("Tablas creadas o verificadas con éxito.");
-            
-        } catch (Exception e) {
-            System.err.println("Error al crear tablas: " + e.getMessage());
-        }
+        // 3. El Facade ahora recibe el objeto y lo procesa
+        FacadeNotificador facade = new FacadeNotificador();
+        facade.notificar(miUsuario, "Recibiste una notificacion");
     }
 }
+    
+
