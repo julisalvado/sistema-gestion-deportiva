@@ -1,4 +1,4 @@
-package com.gestionDeportiva.modulos.notificaciones;
+package com.gestionDeportiva.modulos.notificaciones.modelo;
 
 public class MedioContacto {
     private String tipo;  // Aquí vendrá "firebase", "email", etc.
