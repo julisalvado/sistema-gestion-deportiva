@@ -4,6 +4,7 @@ import com.gestionDeportiva.modulos.notificaciones.interfaces.IStrategyNotificad
 
 public class Notificador {
     private IStrategyNotificador estrategia;
+    private Notificacion notificacion;
 
     public Notificador(IStrategyNotificador estrategia) {
         this.estrategia= estrategia;
@@ -14,7 +15,12 @@ public class Notificador {
     }
 
     public void enviarNotificacion(Notificacion notificacion) {
-        this.estrategia.enviarNotificacion(notificacion);
+        if (notificacion != null && estrategia != null) {
+            this.estrategia.enviarNotificacion(notificacion);
+        }
     }
     
+    public void setNotificacion(Notificacion notificacion) {
+        this.notificacion = notificacion;
+    }
 }

@@ -4,31 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
+import com.gestionDeportiva.modulos.notificaciones.interfaces.IAdapterNotificadorPush;
 import com.gestionDeportiva.modulos.notificaciones.interfaces.IStrategyNotificador;
+import com.gestionDeportiva.modulos.notificaciones.strategies.NotificadorPush;
+
+import java.util.ServiceLoader;
 
 public class FactoryStrategyNotificador {
 
-    public List<IStrategyNotificador> crearEstrategias() {
+    public static IStrategyNotificador crearEstrategia(String tipo) {
+        // ServiceLoader busca todas las implementaciones anotadas en META-INF/services
+        ServiceLoader<IStrategyNotificador> loaderEstrategias = ServiceLoader.load(IStrategyNotificador.class);
+        
+        ServiceLoader<IAdapterNotificadorPush> loaderAdapters = ServiceLoader.load(IAdapterNotificadorPush.class);
 
-        List<IStrategyNotificador> listaEstrategias = new ArrayList<>();
-
-        ServiceLoader<IStrategyNotificador> loader = ServiceLoader.load(IStrategyNotificador.class);
-
-        for (IStrategyNotificador estrategia: loader) {
-            listaEstrategias.add(estrategia);
+        for (IStrategyNotificador estrategia : loaderEstrategias) {
+            // Si la estrategia es de tipo Push, intentamos ponerle el adapter correcto
+            if (estrategia instanceof NotificadorPush) {
+                for (IAdapterNotificadorPush adapter : loaderAdapters) {
+                    if (adapter.getTipo().equalsIgnoreCase(tipo)) {
+                        ((NotificadorPush) estrategia).setAdapter(adapter);
+                        return estrategia;
+                    }
+                }
+            } 
+            // Si es otra estrategia (como Email) que no usa adapters de Push
+            else if (estrategia.getTipo().equalsIgnoreCase(tipo)) {
+                return estrategia;
+            }
         }
-
-        return listaEstrategias;
+        throw new IllegalArgumentException("No hay soporte para: " + tipo);
     }
-
 }
 
-/* 
-// 1. La factory busca en el archivo de texto y crea la lista
-var medios = FactoryStrategyNotificador.crearMediosPorDefecto();
-
-// 2. Se la pasamos al Facade
-FacadeNotificador facade = new FacadeNotificador(medios);
-
-// 3. Ejecutamos
-facade.enviarANotificadores("¡Hola! Esto es escalable.");*/
