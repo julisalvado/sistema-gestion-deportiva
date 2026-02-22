@@ -28,6 +28,10 @@ public class Usuario {
         return mediosContacto;
     }
 
+    public void agregarMedio(MedioContacto medio) {
+        this.mediosContacto.add(medio);
+    }
+
     public int getIdUsuario() { return idUsuario; }
     public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
 
