@@ -1,19 +1,32 @@
 package com.gestionDeportiva.modulos.notificaciones.facade;
 
+import java.util.List;
+
+import com.gestionDeportiva.Usuario;
+import com.gestionDeportiva.modulos.notificaciones.MedioContacto;
+import com.gestionDeportiva.modulos.notificaciones.dao.MedioContactoDAO;
+import com.gestionDeportiva.modulos.notificaciones.factory.FactoryStrategyNotificador;
+import com.gestionDeportiva.modulos.notificaciones.interfaces.IStrategyNotificador;
+import com.gestionDeportiva.modulos.notificaciones.modelo.Notificacion;
+import com.gestionDeportiva.modulos.notificaciones.modelo.Notificador;
+
 public class FacadeNotificador {
 
-    private List<IStrategyNotificador> estrategias;
+    public void notificar(Usuario usuario, String mensaje) {
+        List<MedioContacto> medios = usuario.getMediosContacto();
+        
+        if (medios == null || medios.isEmpty()) {
+            System.out.println("El usuario no tiene medios de contacto configurados.");
+            return;
+        }
 
-    public FacadeNotificador(List<IStrategyNotificador> estrategias) {
-        this.estrategias = estrategias;
-    }
+        for (MedioContacto medio : medios) {
+            Notificacion notificacion = new Notificacion(medio.getValor(), mensaje);
+            IStrategyNotificador estrategia = FactoryStrategyNotificador.crearEstrategia(medio.getTipo());
 
-    public String notificarEnMedios(String mensaje) {
-		Notificacion notificacion = new Notificacion(mensaje);
-
-        for (IStrategyNotificador estrategia: estrategias) {
+        
             Notificador notificador = new Notificador(estrategia);
-            notificador.notificar(notificacion);
+            notificador.enviarNotificacion(notificacion);
         }
 	}
 }
