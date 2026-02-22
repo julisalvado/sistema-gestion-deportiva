@@ -16,4 +16,5 @@ public interface IEstadoPartido {
     void cancelarPorAdmin(Partido partido, Administrador administrador);
 
     void tick(Partido partido, LocalDateTime ahora);
+
 }

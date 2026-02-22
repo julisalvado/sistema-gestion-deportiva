@@ -7,6 +7,7 @@ public class Comentario {
     private String contenido;
     private LocalDateTime fecha;
 
+
     public Comentario (Administrador administrador, String contenido) {
         this.administrador = administrador;
         this.contenido = contenido;

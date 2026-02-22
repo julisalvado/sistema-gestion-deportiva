@@ -16,7 +16,6 @@ public class EstadoEnJuego implements IEstadoPartido{
     public void seleccionar(Partido partido, Jugador jugador) {
         throw new IllegalStateException("No es posible seleciconar el partido, el mismo ya está en juego.");
     }
-
     @Override
     public void confrimar(Partido partido, Jugador jugador) {
         throw new IllegalStateException("No es posible confirmar el partido, el mismo ya está en juego.");

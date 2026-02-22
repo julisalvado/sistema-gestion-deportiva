@@ -22,7 +22,7 @@ public class EstadoEsperandoJugadores implements IEstadoPartido{
         partido.confirmarInterno(jugador);
 
         if (partido.todosConfirmaron()){
-            partido.CambiarEstado(new EstadoConfirmado());
+            partido.cambiarEstado(new EstadoConfirmado());
         }
     }
 

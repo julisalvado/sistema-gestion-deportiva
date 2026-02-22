@@ -11,7 +11,6 @@ public class EstadoConfirmado implements IEstadoPartido {
     public String nombre() {
         return "Confirmado.";
     }
-
     @Override
     public void seleccionar(Partido partido, Jugador jugador) {
         throw new IllegalStateException("No se pueden añadir más jugadores, el mismo se enceuntra completo.");

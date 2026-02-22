@@ -42,7 +42,6 @@ public class Partido {
                     "La fecha y hora del partido debe ser futura."
             );
         }
-
         this.deporte = deporte;
         this.duracionMinutos = duracionMinutos;
         this.zona = zona;

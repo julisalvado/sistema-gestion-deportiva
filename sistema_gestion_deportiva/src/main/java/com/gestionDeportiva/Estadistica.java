@@ -5,6 +5,7 @@ public class Estadistica {
     private int expulsiones;
     private Jugador mvp;
 
+
     public void agregarAmonestacion() {
         amonestaciones++;
     }

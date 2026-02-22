@@ -27,6 +27,7 @@ public class EstadoFinalizado implements IEstadoPartido {
         throw new IllegalStateException("El partido ya finalizó, no es posible cancelar el mismo.");
     }
 
+
     @Override
     public void tick(Partido partido, LocalDateTime ahora) {
         // No es necesario realizar ninguna acción en el metodo tick, ya que el partido ya ha finalizado.
