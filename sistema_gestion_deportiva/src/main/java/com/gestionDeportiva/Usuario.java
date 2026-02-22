@@ -3,7 +3,7 @@ package com.gestionDeportiva;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gestionDeportiva.modulos.notificaciones.MedioContacto;
+import com.gestionDeportiva.modulos.notificaciones.modelo.MedioContacto;
 
 public class Usuario {
     protected int idUsuario;
