@@ -1,12 +1,13 @@
-package com.gestionDeportiva.modulos.notificaciones.states;
+package com.gestionDeportiva.modulos.notificaciones.partidoEstados;
 
 import com.gestionDeportiva.Administrador;
 import com.gestionDeportiva.Jugador;
 import com.gestionDeportiva.Partido;
+import com.gestionDeportiva.modulos.notificaciones.states.IEstadoPartido;
 
 import java.time.LocalDateTime;
 
-public class EstadoEsperandoJugadores implements IEstadoPartido{
+public class EstadoEsperandoJugadores implements IEstadoPartido {
     @Override
     public String nombre() {
         return "Esperando jugadores.";
