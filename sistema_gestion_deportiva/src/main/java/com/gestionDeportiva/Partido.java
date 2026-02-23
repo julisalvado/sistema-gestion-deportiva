@@ -34,20 +34,46 @@ public class Partido {
             IStrategyNivelJuego nvlMin,
             IStrategyNivelJuego nvlMax,
             Administrador admin,
-            List<Jugador> jugadores,
-            Set<Jugador> confirmadosIniciales){
-        this(deporte, duracionMinutos, zona, fechaHoraInicio, nvlMin, nvlMax, admin);
-        for (Jugador jugador : jugadores) {
+            List<Jugador> jugadoresIniciales,
+            Set<Jugador> confirmadosIniciales,
+            IEstadoPartido estadoInicial
+    ) {
+
+        Objects.requireNonNull(deporte);
+        Objects.requireNonNull(zona);
+        Objects.requireNonNull(fechaHoraInicio);
+        Objects.requireNonNull(nvlMin);
+        Objects.requireNonNull(nvlMax);
+        Objects.requireNonNull(admin);
+        Objects.requireNonNull(jugadoresIniciales);
+        Objects.requireNonNull(confirmadosIniciales);
+        Objects.requireNonNull(estadoInicial);
+
+        if (duracionMinutos <= 0) {
+            throw new IllegalArgumentException("La duración debe ser mayor a 0.");
+        }
+
+        this.deporte = deporte;
+        this.fechaHoraInicio = fechaHoraInicio;
+        this.duracionMinutos = duracionMinutos;
+        this.zona = zona;
+        this.nvlMin = nvlMin;
+        this.nvlMax = nvlMax;
+        this.admin = admin;
+        this.jugadores = new ArrayList<>();
+        this.confirmados = new HashSet<>();
+        this.comentarios = new ArrayList<>();
+        this.estado = estadoInicial;
+        for (Jugador jugador : jugadoresIniciales) {
             agregarJugadorInterno(jugador);
         }
         for (Jugador jugador : confirmadosIniciales) {
             if (!jugadores.contains(jugador)) {
                 throw new IllegalArgumentException(
-                        "El jugador " + jugador.getNombre() + " no está en la lista de jugadores anotados."
+                        "El jugador " + jugador.getNombre() +
+                                " no está en la lista de jugadores anotados."
                 );
             }
-        }
-        for (Jugador jugador : confirmadosIniciales) {
             confirmarInterno(jugador);
         }
     }

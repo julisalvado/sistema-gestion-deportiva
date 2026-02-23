@@ -10,10 +10,14 @@ import com.gestionDeportiva.modulos.Usuario.strategies.Intermedio;
 import com.gestionDeportiva.modulos.Usuario.strategies.Principiante;
 import com.gestionDeportiva.modulos.notificaciones.facade.FacadeNotificador;
 import com.gestionDeportiva.modulos.notificaciones.modelo.MedioContacto;
+import com.gestionDeportiva.modulos.notificaciones.partidoEstados.EstadoFinalizado;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 public class test {
@@ -28,7 +32,7 @@ public class test {
         IStrategyNivelJuego nivelMin = new Principiante();
         IStrategyNivelJuego nivelMax = new Intermedio();
 
-        LocalDateTime fechaPartido1 = LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 0));
+        LocalDateTime fechaPartido1 = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 0));
 
         Partido partidoTenis = new Partido(tenis, 10, "San Isidro", fechaPartido1, nivelMin, nivelMax, admin);
 
@@ -68,9 +72,13 @@ public class test {
         partidoTenis.confirmarParticipacion(jugador1);
         partidoTenis.confirmarParticipacion(jugador3);
 
+            //6.1 ALTERNTIVAS DE PARATIDOS
+        Partido partidoFinalizado = new Partido(tenis, LocalDateTime.now().minusDays(2), 90, "San Isidro", new Principiante(), new Avanzado(), admin, List.of(jugador1, jugador2), Set.of(jugador1, jugador2), new EstadoFinalizado());
+        System.out.println(partidoFinalizado.getInfo());
+        System.out.println(jugador1.getInformacion());
+        System.out.println("-----------------------------------\n ");
         System.out.println(partidoTenis.getInfo());
-
-
+        System.out.println(jugador1.getHistorialPartidos());
 
         //2. CREACIÓN DE USUARIO ADMINISTRADOR
 
