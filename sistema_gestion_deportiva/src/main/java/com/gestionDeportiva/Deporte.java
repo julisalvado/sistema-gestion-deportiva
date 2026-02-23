@@ -32,8 +32,21 @@ public class Deporte implements IObservable{
         return jugadoresNecesarios;
     }
 
-    //agregar(observer)
-    //eliminar(observer)
+    public void agregarObserver(IObserver observer) {
+        if (observer == null) {
+            throw new IllegalArgumentException("El observer no puede ser nulo.");
+        }
+        if (!observers.contains(observer)) {
+            observers.add(observer);
+        }
+    }
+
+    public void eliminarObserver(IObserver observer) {
+        if (observer == null) {
+            throw new IllegalArgumentException("El observer no puede ser nulo.");
+        }
+        observers.remove(observer);
+    }
 
     public void notificar(String mensaje) {
         FacadeNotificador fachada = new FacadeNotificador();
