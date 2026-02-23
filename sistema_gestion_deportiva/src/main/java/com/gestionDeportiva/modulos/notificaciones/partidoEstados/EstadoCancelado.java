@@ -19,7 +19,7 @@ public class EstadoCancelado implements IEstadoPartido {
     }
 
     @Override
-    public void confrimar(Partido partido, Jugador jugador) {
+    public void confirmarParticipacion(Partido partido, Jugador jugador) {
         throw new IllegalStateException("No es posible confirmar el partido, el mismo se encuentra cancelado.");
     }
 

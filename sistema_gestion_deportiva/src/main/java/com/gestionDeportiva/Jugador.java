@@ -53,7 +53,6 @@ public class Jugador extends Usuario {
     }
 
     try {
-        //revisar en Partido el metodo confirmarParticipacion
         partido.confirmarParticipacion(this);
         System.out.println("Asistencia confirmada.");
     } catch (IllegalStateException e) {

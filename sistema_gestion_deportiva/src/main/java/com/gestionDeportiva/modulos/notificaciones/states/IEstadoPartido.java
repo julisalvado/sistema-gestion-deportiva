@@ -11,7 +11,7 @@ public interface IEstadoPartido {
 
     void seleccionar(Partido partido, Jugador jugador);
 
-    void confrimar(Partido partido, Jugador jugador);
+    void confirmarParticipacion(Partido partido, Jugador jugador);
 
     void cancelarPorAdmin(Partido partido, Administrador administrador);
 

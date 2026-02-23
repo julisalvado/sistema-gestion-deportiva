@@ -14,6 +14,7 @@ public class Autenticador implements IAuthenticator {
     public void registrarUsuario(Usuario usuario) {
         Objects.requireNonNull(usuario);
         usuariosRegistrados.put(usuario.getNombre(), usuario);
+        System.out.println("Usuario registrado: " + usuario.getNombre());
     }
 
     @Override

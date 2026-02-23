@@ -19,7 +19,7 @@ public class EstadoFinalizado implements IEstadoPartido {
     }
 
     @Override
-    public void confrimar(Partido partido, Jugador jugador) {
+    public void confirmarParticipacion(Partido partido, Jugador jugador) {
         throw new IllegalStateException("El partido ya finalizó, no es posible confirmar la asistencia.");
     }
 
