@@ -3,9 +3,11 @@ package com.gestionDeportiva.modulos.Usuario.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gestionDeportiva.modulos.IObserver;
+import com.gestionDeportiva.modulos.Usuario.IObservable;
 import com.gestionDeportiva.modulos.notificaciones.modelo.MedioContacto;
 
-public abstract class Usuario {
+public abstract class Usuario implements IObserver{
     protected int idUsuario;
     protected String nombre;
     protected String email;
@@ -30,6 +32,10 @@ public abstract class Usuario {
 
     public void agregarMedio(MedioContacto medio) {
         this.mediosContacto.add(medio);
+    }
+
+    public void serNotificadoPor(IObservable observable) {
+        
     }
 
     public int getIdUsuario() { return idUsuario; }
