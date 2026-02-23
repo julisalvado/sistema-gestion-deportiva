@@ -11,11 +11,16 @@ public class Jugador extends Usuario {
     private HistorialPartidos historialPartidos;
     private IStrategyNivelJuego nivelJuego;
 
-    public Jugador(String nombre, String email, String contrasenia) {
-        super(nombre, email, contrasenia); // Llama al constructor de Usuario
+    public Jugador(String nombre, String email, String contrasenia, String zona) {
+        super(nombre, email, contrasenia);// Llama al constructor de Usuario
+        this.zona = zona;
+        this.historialPartidos = new HistorialPartidos();
     }
 
-    public void setZona(String zona) { this.zona = zona; }
+    public void setDeporteFavorito(Deporte deporte) {
+        this.deporteFavorito = deporte;
+    }
+
     public String getZona() { return zona; }
 
     public String getNombre() {
@@ -66,6 +71,18 @@ public class Jugador extends Usuario {
 
     public HistorialPartidos getHistorialPartidos() {
     return this.historialPartidos; 
+    }
+
+    public void agregarAlHistorial(Partido partido) {
+        historialPartidos.agregarPartido(partido);
+    }
+
+    public String getInformacion() {
+        return "Nombre: " + getNombre() + "\n" +
+               "Email: " + email + "\n" +
+               "Zona: " + zona + "\n" +
+               "Deporte Favorito: " + (deporteFavorito != null ? deporteFavorito.getNombre() : "No especificado") + "\n" +
+               "Nivel de Juego: " + (nivelJuego != null ? nivelJuego.getName() : "No especificado") + "\n";
     }
 
 }

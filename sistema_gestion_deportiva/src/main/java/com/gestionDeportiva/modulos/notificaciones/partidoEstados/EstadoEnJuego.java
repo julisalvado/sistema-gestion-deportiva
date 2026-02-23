@@ -30,6 +30,7 @@ public class EstadoEnJuego implements IEstadoPartido {
     @Override
     public void tick(Partido partido, LocalDateTime ahora) {
         if (!ahora.isBefore(partido.getFechaHoraFin())){
+            partido.registrarEnHistorial();
             partido.cambiarEstado(new EstadoFinalizado());
         }
     }

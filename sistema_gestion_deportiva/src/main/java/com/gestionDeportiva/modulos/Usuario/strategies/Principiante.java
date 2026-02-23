@@ -4,6 +4,11 @@ import com.gestionDeportiva.modulos.Usuario.interfaces.IStrategyNivelJuego;
 public class Principiante implements IStrategyNivelJuego {
 
     @Override
+    public String getName() {
+        return "Principiante";
+    }
+
+    @Override
     public void definirNivelJuego() {
         System.out.println("El jugador tiene nivel principiante.");
     }

@@ -15,7 +15,10 @@ public class EstadoEsperandoJugadores implements IEstadoPartido {
 
     @Override
     public void seleccionar(Partido partido, Jugador jugador) {
-        partido.agregarJugadorInterno(jugador);
+        if (!partido.estaLleno()){
+            partido.agregarJugadorInterno(jugador);
+            System.out.println("Jugador agregado. \n");
+        }
     }
 
     @Override
@@ -29,7 +32,8 @@ public class EstadoEsperandoJugadores implements IEstadoPartido {
 
     @Override
     public void cancelarPorAdmin(Partido partido, Administrador administrador) {
-
+        partido.cambiarEstado(new EstadoCancelado());
+        System.out.println(administrador.getNombre() + " ha cancelado el partido de " + partido.getDeporte().getNombre() + " programado para el día " + partido.getFechaHoraInicio());
     }
 
     @Override

@@ -12,7 +12,6 @@ import java.util.*;
 
 public class Partido {
 
-    private int idPartido;
     private Usuario admin;
     private Deporte deporte;
     private LocalDateTime fechaHoraInicio;
@@ -25,6 +24,33 @@ public class Partido {
     private Set<Jugador> confirmados;
     private List<Comentario> comentarios;
     private Estadistica estadistica;
+
+    //ESTE FUNCIONARÁ PARA LAS PRUEBAS
+    public Partido(
+            Deporte deporte,
+            LocalDateTime fechaHoraInicio,
+            int duracionMinutos,
+            String zona,
+            IStrategyNivelJuego nvlMin,
+            IStrategyNivelJuego nvlMax,
+            Administrador admin,
+            List<Jugador> jugadores,
+            Set<Jugador> confirmadosIniciales){
+        this(deporte, duracionMinutos, zona, fechaHoraInicio, nvlMin, nvlMax, admin);
+        for (Jugador jugador : jugadores) {
+            agregarJugadorInterno(jugador);
+        }
+        for (Jugador jugador : confirmadosIniciales) {
+            if (!jugadores.contains(jugador)) {
+                throw new IllegalArgumentException(
+                        "El jugador " + jugador.getNombre() + " no está en la lista de jugadores anotados."
+                );
+            }
+        }
+        for (Jugador jugador : confirmadosIniciales) {
+            confirmarInterno(jugador);
+        }
+    }
 
 
     public Partido(Deporte deporte, int duracionMinutos, String zona, LocalDateTime fechaHoraInicio, IStrategyNivelJuego nvlMin, IStrategyNivelJuego nvlMax, Administrador admin) {
@@ -57,15 +83,13 @@ public class Partido {
         this.confirmados = new HashSet<>();
         this.comentarios = new ArrayList<>();
         this.estado = new EstadoEsperandoJugadores();
+
+        System.out.println("El partido de " + deporte.getNombre() + " ha sido creado por " + admin.getNombre() + " para el día " + fechaHoraInicio + " en la zona " + zona + ". Duración: " + duracionMinutos + " minutos. Nivel permitido: " + nvlMin.getValorNivel() + " a " + nvlMax.getValorNivel() + " con éxito.");
     }
 
     public void seleccionar(Jugador jugador) {
         estado.seleccionar(this, jugador);
     }
-
-    /*public void confirmarParticipacion(Jugador jugador) {
-        estado.confirmar(this, jugador);
-    }*/
 
     public void cancelarPorAdmin(Administrador admin) {
         estado.cancelarPorAdmin(this, admin);
@@ -84,11 +108,18 @@ public class Partido {
         if (jugadores.contains(jugador)) {
             throw new IllegalStateException("El jugador ya está en el partido.");
         }
+
+        if (!nivelPermitido(jugador)) {
+            throw new IllegalStateException(
+                    "El nivel del jugador no está dentro del rango permitido."
+            );
+        }
         jugadores.add(jugador);
     }
 
     public void confirmarInterno(Jugador jugador) {
         confirmados.add(jugador);
+        System.out.println("El jugador " + jugador.getNombre() + " ha confirmado su participación en el partido de " + deporte.getNombre() + ".\n");
     }
 
     public boolean estaLleno() {
@@ -152,7 +183,6 @@ public class Partido {
         return Optional.ofNullable(estadistica);
     }
 
-
     public LocalDateTime getFechaHoraInicio() {
         return fechaHoraInicio;
     }
@@ -165,10 +195,13 @@ public class Partido {
         this.estado = nuevoEstado;
     }
 
+    public void confirmarParticipacion(Jugador jugador) {
+        estado.confirmarParticipacion(this, jugador);
+    }
+
     public IEstadoPartido getEstado() {
         return estado;
     }
-
 
     public List<Jugador> getJugadores() {
         return Collections.unmodifiableList(jugadores);
@@ -182,7 +215,6 @@ public class Partido {
         return admin;
     }
 
-    //agregado para el uso de emparejamiento por nivel
     public IStrategyNivelJuego getNvlMin() {
         return nvlMin;
     }
@@ -191,9 +223,38 @@ public class Partido {
         return nvlMax;
     }
 
-    //agregado para el uso de emparejamiento por cercania
     public String getZona() {
         return zona;
     }
 
+    private boolean nivelPermitido(Jugador jugador) {
+        int nivelJugador = jugador.getNivelJuego().getValorNivel();
+        return nivelJugador >= nvlMin.getValorNivel()
+                && nivelJugador <= nvlMax.getValorNivel();
+    }
+
+    public int getDuracionMinutos() {
+        return duracionMinutos;
+    }
+
+    public String getInfo(){
+        return "===== INFROMACIÓN DEL PARTIDO =====\n" +
+                "- Deporte: " + deporte.getNombre() + "\n" +
+                "- Duración: " + duracionMinutos + " minutos\n" +
+                "- Zona: " + zona + "\n" +
+                "- Fecha y hora: " + fechaHoraInicio + "\n" +
+                "- Nivel mínimo: " + nvlMin.getClass().getSimpleName() + "\n" +
+                "- Nivel máximo: " + nvlMax.getClass().getSimpleName() + "\n" +
+                "- Administrador: " + admin.getNombre() + "\n" +
+                "- Cantidad de jugadores anotados: " + jugadores.size() + "\n" +
+                "- Cantidad confirmados: " + confirmados.size() + "\n" +
+                "- Estado actual: " + estado.nombre() + "\n" +
+                "================================";
+    }
+
+    public void registrarEnHistorial() {
+        for (Jugador jugador : jugadores) {
+            jugador.agregarAlHistorial(this);
+        }
+    }
 }

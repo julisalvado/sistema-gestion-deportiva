@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class HistorialPartidos {
     private List<Partido> partidos;
 
-    public HistorialPartidos(List<Partido> partidos) {
-        this.partidos = new ArrayList<>(partidos);
+    public HistorialPartidos() {
+        this.partidos = new ArrayList<>();
     }
 
     public void agregarPartido(Partido partido) {
