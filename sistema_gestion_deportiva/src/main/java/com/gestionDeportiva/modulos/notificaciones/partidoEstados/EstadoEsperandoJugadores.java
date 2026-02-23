@@ -19,7 +19,7 @@ public class EstadoEsperandoJugadores implements IEstadoPartido {
     }
 
     @Override
-    public void confrimar(Partido partido, Jugador jugador) {
+    public void confirmarParticipacion(Partido partido, Jugador jugador) {
         partido.confirmarInterno(jugador);
 
         if (partido.todosConfirmaron()){
