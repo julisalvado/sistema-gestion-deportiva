@@ -1,4 +1,4 @@
-package com.gestionDeportiva.modulos.notificaciones.interfaces;
+package com.gestionDeportiva.modulos.Usuario.interfaces;
 
 public interface IStrategyNivelJuego {
     public void definirNivelJuego();

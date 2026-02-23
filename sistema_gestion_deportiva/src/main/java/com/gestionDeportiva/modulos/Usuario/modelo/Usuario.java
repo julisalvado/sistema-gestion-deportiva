@@ -1,4 +1,4 @@
-package com.gestionDeportiva;
+package com.gestionDeportiva.modulos.Usuario.modelo;
 
 import java.util.ArrayList;
 import java.util.List;

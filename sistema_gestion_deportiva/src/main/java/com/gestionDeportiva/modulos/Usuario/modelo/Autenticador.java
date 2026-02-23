@@ -1,10 +1,10 @@
-package com.gestionDeportiva;
-
-import com.gestionDeportiva.modulos.notificaciones.interfaces.IAuthenticator;
+package com.gestionDeportiva.modulos.Usuario.modelo;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import com.gestionDeportiva.modulos.Usuario.interfaces.IAuthenticator;
 
 public class Autenticador implements IAuthenticator {
     private final Map<String, Usuario> usuariosRegistrados = new HashMap<>();

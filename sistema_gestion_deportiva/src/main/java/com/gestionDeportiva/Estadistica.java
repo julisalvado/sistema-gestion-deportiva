@@ -1,5 +1,7 @@
 package com.gestionDeportiva;
 
+import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
+
 public class Estadistica {
     private int amonestaciones;
     private int expulsiones;

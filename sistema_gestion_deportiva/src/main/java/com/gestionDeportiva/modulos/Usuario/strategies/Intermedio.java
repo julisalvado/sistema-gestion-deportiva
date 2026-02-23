@@ -1,5 +1,5 @@
-package com.gestionDeportiva.modulos.notificaciones.strategies;
-import com.gestionDeportiva.modulos.notificaciones.interfaces.IStrategyNivelJuego;
+package com.gestionDeportiva.modulos.Usuario.strategies;
+import com.gestionDeportiva.modulos.Usuario.interfaces.IStrategyNivelJuego;
 
 public class Intermedio implements IStrategyNivelJuego {
 

@@ -1,10 +1,11 @@
-package com.gestionDeportiva.modulos.notificaciones.strategies;
+package com.gestionDeportiva.modulos.Usuario.strategies;
 
-import com.gestionDeportiva.modulos.notificaciones.interfaces.IStrategyEmparejamiento;
 import java.util.ArrayList;
 import java.util.List;
-import com.gestionDeportiva.Jugador;
+
 import com.gestionDeportiva.Partido;
+import com.gestionDeportiva.modulos.Usuario.interfaces.IStrategyEmparejamiento;
+import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
 
 public class EmparejamientoPorCercania implements IStrategyEmparejamiento {
 

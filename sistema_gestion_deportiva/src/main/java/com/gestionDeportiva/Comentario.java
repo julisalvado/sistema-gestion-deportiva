@@ -2,6 +2,8 @@ package com.gestionDeportiva;
 
 import java.time.LocalDateTime;
 
+import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
+
 public class Comentario {
     private Administrador administrador;
     private String contenido;

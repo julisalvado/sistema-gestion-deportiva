@@ -1,8 +1,8 @@
 package com.gestionDeportiva.modulos.notificaciones.states;
 
-import com.gestionDeportiva.Administrador;
-import com.gestionDeportiva.Jugador;
 import com.gestionDeportiva.Partido;
+import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
+import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
 
 import java.time.LocalDateTime;
 

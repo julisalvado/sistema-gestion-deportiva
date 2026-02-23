@@ -1,8 +1,11 @@
 package com.gestionDeportiva;
 
+import com.gestionDeportiva.modulos.Usuario.interfaces.IStrategyNivelJuego;
+import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
+import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
+import com.gestionDeportiva.modulos.Usuario.modelo.Usuario;
 import com.gestionDeportiva.modulos.notificaciones.partidoEstados.EstadoEsperandoJugadores;
 import com.gestionDeportiva.modulos.notificaciones.states.*;
-import com.gestionDeportiva.modulos.notificaciones.interfaces.IStrategyNivelJuego;
 
 import java.time.LocalDateTime;
 import java.util.*;

@@ -1,6 +1,9 @@
-package com.gestionDeportiva;
+package com.gestionDeportiva.modulos.Usuario.modelo;
 
-import com.gestionDeportiva.modulos.notificaciones.interfaces.IStrategyNivelJuego;
+import com.gestionDeportiva.Deporte;
+import com.gestionDeportiva.HistorialPartidos;
+import com.gestionDeportiva.Partido;
+import com.gestionDeportiva.modulos.Usuario.interfaces.IStrategyNivelJuego;
 
 public class Jugador extends Usuario {
     private String zona;
@@ -54,7 +57,7 @@ public class Jugador extends Usuario {
 
     try {
         //revisar en Partido el metodo confirmarParticipacion
-        partido.confirmarParticipacion(this);
+        //partido.confirmarParticipacion(this);
         System.out.println("Asistencia confirmada.");
     } catch (IllegalStateException e) {
         System.out.println("No se pudo confirmar asistencia: " + e.getMessage());

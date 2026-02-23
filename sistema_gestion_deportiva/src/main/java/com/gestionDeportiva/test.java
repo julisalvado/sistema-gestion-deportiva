@@ -1,6 +1,9 @@
 package com.gestionDeportiva;
 
 
+import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
+import com.gestionDeportiva.modulos.Usuario.modelo.Autenticador;
+import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
 import com.gestionDeportiva.modulos.notificaciones.facade.FacadeNotificador;
 import com.gestionDeportiva.modulos.notificaciones.modelo.MedioContacto;
 
