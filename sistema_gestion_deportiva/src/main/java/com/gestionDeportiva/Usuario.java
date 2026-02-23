@@ -3,9 +3,9 @@ package com.gestionDeportiva;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gestionDeportiva.modulos.notificaciones.MedioContacto;
+import com.gestionDeportiva.modulos.notificaciones.modelo.MedioContacto;
 
-public class Usuario {
+public abstract class Usuario {
     protected int idUsuario;
     protected String nombre;
     protected String email;

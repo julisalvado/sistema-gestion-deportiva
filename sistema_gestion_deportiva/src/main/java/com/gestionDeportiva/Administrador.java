@@ -5,7 +5,10 @@ public class Administrador extends Usuario{
         super(nombre, email, contrasenia);
     }
 
-    public Partido CrearPartido(Partido partido) {
+    public Partido crearPartido(Partido partido) {
+        if (partido == null){
+            throw new IllegalArgumentException("El partido no puede ser nulo");
+        }
         return partido;
     }
 }

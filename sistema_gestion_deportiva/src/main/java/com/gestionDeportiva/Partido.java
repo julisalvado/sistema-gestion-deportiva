@@ -1,7 +1,7 @@
 package com.gestionDeportiva;
 
 import com.gestionDeportiva.modulos.notificaciones.states.*;
-import com.gestionDeportiva.modulos.notificaciones.strategies.IStrategyNivelJuego;
+import com.gestionDeportiva.modulos.notificaciones.interfaces.IStrategyNivelJuego;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -61,7 +61,7 @@ public class Partido {
 
     /*public void confirmarParticipacion(Jugador jugador) {
         estado.confirmar(this, jugador);
-    } */
+    }*/
 
     public void cancelarPorAdmin(Administrador admin) {
         estado.cancelarPorAdmin(this, admin);
@@ -177,4 +177,19 @@ public class Partido {
     public Usuario getAdmin() {
         return admin;
     }
+
+    //agregado para el uso de emparejamiento por nivel
+    public IStrategyNivelJuego getNvlMin() {
+        return nvlMin;
+    }
+
+    public IStrategyNivelJuego getNvlMax() {
+        return nvlMax;
+    }
+
+    //agregado para el uso de emparejamiento por cercania
+    public String getZona() {
+        return zona;
+    }
+
 }
