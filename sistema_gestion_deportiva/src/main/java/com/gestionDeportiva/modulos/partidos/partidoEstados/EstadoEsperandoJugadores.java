@@ -2,10 +2,10 @@ package com.gestionDeportiva.modulos.partidos.partidoEstados;
 
 import java.time.LocalDateTime;
 
-import com.gestionDeportiva.Partido;
-import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
-import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
+import com.gestionDeportiva.modulos.partidos.modelo.Partido;
 import com.gestionDeportiva.modulos.partidos.states.IEstadoPartido;
+import com.gestionDeportiva.modulos.usuarios.modelo.Administrador;
+import com.gestionDeportiva.modulos.usuarios.modelo.Jugador;
 
 public class EstadoEsperandoJugadores implements IEstadoPartido {
     @Override
