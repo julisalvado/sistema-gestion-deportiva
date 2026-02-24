@@ -115,7 +115,14 @@ public class TestApp {
 
     private static void crearPartidoFlow() {
 
-        Administrador admin = obtenerAdmin();
+        System.out.print("Email administrador: ");
+        String email = scanner.nextLine();
+
+
+        Administrador admin = (Administrador) usuarios.stream()
+                .filter(u -> u instanceof Administrador && u.getEmail().equals(email))
+                .findFirst().orElse(null);
+                
         if (admin == null) {
             System.out.println("Debe existir un administrador.");
             return;
@@ -381,7 +388,10 @@ public class TestApp {
 
     private static void verPartidosAdminFlow() {
 
-        Administrador admin = obtenerAdmin();
+        System.out.print("Email administrador: ");
+        String email = scanner.nextLine();
+
+        Administrador admin = obtenerAdmin(email);
         if (admin == null) return;
 
         List<Partido> misPartidos = partidosGlobales.stream()
@@ -600,11 +610,12 @@ public class TestApp {
 
     // HELPERS
 
-    private static Administrador obtenerAdmin() {
+    private static Administrador obtenerAdmin(String email) {
         return (Administrador) usuarios.stream()
-                .filter(u -> u instanceof Administrador)
+                .filter(u -> u instanceof Administrador && u.getEmail().equals(email))
                 .findFirst().orElse(null);
     }
+   
 
     private static IStrategyNivelJuego obtenerNivel(int sel) {
         return switch (sel) {
