@@ -1,9 +1,9 @@
-package com.gestionDeportiva.modulos.notificaciones.partidoEstados;
+package com.gestionDeportiva.modulos.partidos.partidoEstados;
 
 import com.gestionDeportiva.Partido;
 import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
 import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
-import com.gestionDeportiva.modulos.notificaciones.states.IEstadoPartido;
+import com.gestionDeportiva.modulos.partidos.states.IEstadoPartido;
 
 import java.time.LocalDateTime;
 
@@ -22,16 +22,12 @@ public class EstadoConfirmado implements IEstadoPartido {
         throw new IllegalStateException("El partido ya se ha confirmado.");
     }
 
-    @Override
     public void cancelarPorAdmin(Partido partido, Administrador administrador) {
-        partido.notificar(partido.getJugadores(), "Un partido en el que estabas registrado ah sido cancelado, lo lamentamos mucho! \nLe sugerimos mirar nuestras otras propuestas!" + partido.getInfo());
         partido.cambiarEstado(new EstadoCancelado());
     }
 
-    @Override
     public void tick(Partido partido, LocalDateTime ahora) {
         if(!ahora.isBefore(partido.getFechaHoraInicio())){
-            partido.notificar(partido.getJugadores(), "El iguiente partido esta por comenzar, asegurese de estar preparado! \n" + partido.getInfo());
             partido.cambiarEstado(new EstadoEnJuego());
         }
     }

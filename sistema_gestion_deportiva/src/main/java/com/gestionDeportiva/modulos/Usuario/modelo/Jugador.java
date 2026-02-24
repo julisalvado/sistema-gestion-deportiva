@@ -5,7 +5,7 @@ import com.gestionDeportiva.HistorialPartidos;
 import com.gestionDeportiva.Partido;
 import com.gestionDeportiva.modulos.Usuario.interfaces.IStrategyNivelJuego;
 
-public class Jugador extends Usuario {
+public class Jugador extends Usuario{
     private String zona;
     private Deporte deporteFavorito;
     private HistorialPartidos historialPartidos;

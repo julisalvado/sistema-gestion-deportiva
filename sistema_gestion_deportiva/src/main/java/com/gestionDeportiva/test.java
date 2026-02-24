@@ -1,6 +1,10 @@
 package com.gestionDeportiva;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import com.gestionDeportiva.modulos.Usuario.interfaces.IStrategyNivelJuego;
 import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
 import com.gestionDeportiva.modulos.Usuario.modelo.Autenticador;
@@ -8,16 +12,6 @@ import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
 import com.gestionDeportiva.modulos.Usuario.strategies.Avanzado;
 import com.gestionDeportiva.modulos.Usuario.strategies.Intermedio;
 import com.gestionDeportiva.modulos.Usuario.strategies.Principiante;
-import com.gestionDeportiva.modulos.notificaciones.facade.FacadeNotificador;
-import com.gestionDeportiva.modulos.notificaciones.modelo.MedioContacto;
-import com.gestionDeportiva.modulos.notificaciones.partidoEstados.EstadoFinalizado;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 
 public class test {
@@ -26,13 +20,15 @@ public class test {
         Administrador admin = new Administrador("admin", "admin@mail.com", "admin123");
 
         //2. CREACIÓN DE DEPORTE
-        Deporte tenis = new Deporte("Tenis", 2);
+        //Deporte tenis = new Deporte("Tenis", 2);
+        FactoryDeporte factoryDeporte = new FactoryDeporte();
+        Deporte tenis = factoryDeporte.crearDeporte("Tenis");
 
         //3. CREACIÓN DE PARTIDO
         IStrategyNivelJuego nivelMin = new Principiante();
         IStrategyNivelJuego nivelMax = new Intermedio();
 
-        LocalDateTime fechaPartido1 = LocalDateTime.of(LocalDate.now(), LocalTime.of(20, 0));
+        LocalDateTime fechaPartido1 = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 0));
 
         Partido partidoTenis = new Partido(tenis, 10, "San Isidro", fechaPartido1, nivelMin, nivelMax, admin);
 
@@ -73,8 +69,8 @@ public class test {
         partidoTenis.confirmarParticipacion(jugador3);
 
             //6.1 ALTERNTIVAS DE PARATIDOS
-        Partido partidoFinalizado = new Partido(tenis, LocalDateTime.now().minusDays(2), 90, "San Isidro", new Principiante(), new Avanzado(), admin, List.of(jugador1, jugador2), Set.of(jugador1, jugador2), new EstadoFinalizado());
-        System.out.println(partidoFinalizado.getInfo());
+        //Partido partidoFinalizado = new Partido(tenis, LocalDateTime.now().minusDays(2), 90, "San Isidro", new Principiante(), new Avanzado(), admin, List.of(jugador1, jugador2), Set.of(jugador1, jugador2), new EstadoFinalizado());
+        //System.out.println(partidoFinalizado.getInfo());
         System.out.println(jugador1.getInformacion());
         System.out.println("-----------------------------------\n ");
         System.out.println(partidoTenis.getInfo());

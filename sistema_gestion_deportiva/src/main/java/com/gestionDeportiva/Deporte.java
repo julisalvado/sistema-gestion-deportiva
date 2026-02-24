@@ -5,13 +5,12 @@ import java.util.List;
 
 import com.gestionDeportiva.modulos.IObserver;
 import com.gestionDeportiva.modulos.Usuario.IObservable;
-import com.gestionDeportiva.modulos.Usuario.modelo.Usuario;
 import com.gestionDeportiva.modulos.notificaciones.facade.FacadeNotificador;
 
-public class Deporte implements IObservable{
-    private String nombre;
-    private int jugadoresNecesarios;
-    private List<IObserver> observers = new ArrayList<IObserver>();
+public abstract class Deporte implements IObservable{
+    protected String nombre;
+    protected int jugadoresNecesarios;
+    protected List<IObserver> observers = new ArrayList<>();
 
     public Deporte(String nombre, int jugadoresNecesarios) {
         if (nombre == null || nombre.isEmpty()) {
@@ -51,6 +50,7 @@ public class Deporte implements IObservable{
     public void notificar(String mensaje) {
         FacadeNotificador fachada = new FacadeNotificador();
         fachada.notificar(this.observers, mensaje);
+        
     }
 
 }
