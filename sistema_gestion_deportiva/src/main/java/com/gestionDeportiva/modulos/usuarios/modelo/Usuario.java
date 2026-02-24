@@ -25,7 +25,6 @@ public abstract class Usuario implements IObserver{
     public void serNotificadoPor(IObservable observable) {
         if (observable != null) {
             observable.agregarObserver(this); 
-            System.out.println("El usuario " + this.nombre + " ahora sigue a: " + observable.toString());
         }
     }
 

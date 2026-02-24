@@ -12,8 +12,7 @@ public class Administrador extends Usuario{
             throw new IllegalArgumentException("El partido no puede ser nulo");
         }
         
-        String mensaje = "¡Nuevo partido de " + partido.getDeporte().getNombre() + " creado! " +
-                     "Lugar: " + partido.getZona() + " a las " + partido.getFechaHoraInicio();
+        String mensaje = "NUEVO PARTIDO DISPONIBLE\n" + partido.getInfo();
     
         partido.getDeporte().notificar(mensaje);
 

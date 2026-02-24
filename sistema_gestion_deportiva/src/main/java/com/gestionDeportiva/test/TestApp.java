@@ -5,16 +5,18 @@ import java.util.*;
 import com.gestionDeportiva.modulos.deportes.modelo.Deporte;
 import com.gestionDeportiva.modulos.deportes.modelo.GestorDeportes;
 import com.gestionDeportiva.modulos.notificaciones.modelo.MedioContacto;
+import com.gestionDeportiva.modulos.usuarios.interfaces.IStrategyNivelJuego;
+import com.gestionDeportiva.modulos.partidos.modelo.BusquedaPartidos;
 import com.gestionDeportiva.modulos.partidos.modelo.Partido;
-import com.gestionDeportiva.modulos.usuarios.BusquedaPartidos;
-import com.gestionDeportiva.modulos.usuarios.interfaces.IStrategyEmparejamiento;
+import com.gestionDeportiva.modulos.partidos.strategies.EmparejamientoPorCercania;
+import com.gestionDeportiva.modulos.partidos.strategies.EmparejamientoPorHistorial;
+import com.gestionDeportiva.modulos.partidos.strategies.EmparejamientoPorNivel;
+import com.gestionDeportiva.modulos.partidos.strategies.IStrategyEmparejamiento;
 import com.gestionDeportiva.modulos.usuarios.modelo.Administrador;
 import com.gestionDeportiva.modulos.usuarios.modelo.Jugador;
 import com.gestionDeportiva.modulos.usuarios.modelo.Usuario;
 import com.gestionDeportiva.modulos.usuarios.strategies.Avanzado;
-import com.gestionDeportiva.modulos.usuarios.strategies.EmparejamientoPorCercania;
-import com.gestionDeportiva.modulos.usuarios.strategies.EmparejamientoPorHistorial;
-import com.gestionDeportiva.modulos.usuarios.strategies.EmparejamientoPorNivel;
+import com.gestionDeportiva.modulos.usuarios.strategies.Intermedio;
 import com.gestionDeportiva.modulos.usuarios.strategies.Principiante;
 
 import java.time.LocalDateTime;
@@ -59,6 +61,8 @@ public class TestApp {
     private static void registrarJugador() {
         System.out.print("Nombre: "); String nom = scanner.nextLine();
         System.out.print("Email: "); String email = scanner.nextLine();
+        System.out.print("Contraseña: "); String contrasenia = scanner.nextLine();
+        System.out.print("Zona (ej: San Isidro, Palermo, Avellaneda): "); String zona = scanner.nextLine();
         
         System.out.println("Elija Deporte Favorito:");
         List<Deporte> deps = gestorDeportes.getDeportes();
@@ -67,12 +71,28 @@ public class TestApp {
         int sel = leerEntero();
         Deporte fav = deps.get(sel);
 
+        // 3. Selección de Nivel de Juego (Estrategias)
+        System.out.println("Seleccione su nivel de juego:");
+        System.out.println("0. Principiante");
+        System.out.println("1. Intermedio");
+        System.out.println("2. Avanzado");
+        int selNivel = leerEntero();
+        
+        IStrategyNivelJuego nivelElegido;
+        if (selNivel == 2) {
+            nivelElegido = new Avanzado();
+        } else if (selNivel == 1) {
+            nivelElegido = new Intermedio();
+        } else {
+            nivelElegido = new Principiante(); // Por defecto principiante
+        }
+
         // El constructor de Jugador ya tiene la lógica de activar el Observer
-        Jugador j = new Jugador(nom, email, "123", "San Isidro", fav, new Principiante());
+        Jugador j = new Jugador(nom, email, contrasenia, zona, fav, nivelElegido);
         j.agregarMedio(new MedioContacto("EMAIL", email));
         
         usuarios.add(j);
-        System.out.println("✓ Jugador registrado. Recibirás avisos de " + fav.getNombre());
+        System.out.println("Jugador registrado. Recibirás avisos de " + fav.getNombre());
     }
 
     // 2. REGISTRO DE ADMIN
@@ -80,7 +100,7 @@ public class TestApp {
         System.out.print("Nombre Admin: "); String nom = scanner.nextLine();
         System.out.print("Email Admin: "); String email = scanner.nextLine();
         usuarios.add(new Administrador(nom, email, "admin123"));
-        System.out.println("✓ Administrador registrado.");
+        System.out.println("Administrador registrado.");
     }
 
     // 3. CREAR PARTIDO (Dispara Notificación de Creación)
@@ -100,7 +120,7 @@ public class TestApp {
         // Esta llamada dispara el mail a los seguidores del deporte
         admin.crearPartido(p);
         partidosGlobales.add(p);
-        System.out.println("✓ Partido creado y notificado.");
+        System.out.println("Partido creado y notificado.");
     }
 
     // 4. BUSCAR Y CONFIRMAR (Dispara Notificación de Cambio de Estado)
@@ -142,15 +162,7 @@ public class TestApp {
             System.out.println("No se encontraron partidos que coincidan con su criterio.");
             return;
         }
-
-        /*for (int i = 0; i < partidosGlobales.size(); i++) {
-            System.out.println(i + ". " + partidosGlobales.get(i).getDeporte().getNombre() + " en " + partidosGlobales.get(i).getZona());
-        }
         
-        int sel = leerEntero();
-        Partido p = partidosGlobales.get(sel);*/
-        
-
         // --- MOSTRAR RESULTADOS FILTRADOS ---
         System.out.println("\nPartidos Encontrados:");
         for (int i = 0; i < filtrados.size(); i++) {
@@ -175,6 +187,11 @@ public class TestApp {
     }
 
     private static int leerEntero() {
-        try { return Integer.parseInt(scanner.nextLine()); } catch (Exception e) { return -1; }
+    try {
+        String linea = scanner.nextLine(); // Leemos toda la línea (incluyendo el Enter)
+        return Integer.parseInt(linea.trim()); // Convertimos a número
+    } catch (Exception e) {
+        return -1; // Si el usuario apretó Enter sin escribir nada o puso letras
     }
+}
 }

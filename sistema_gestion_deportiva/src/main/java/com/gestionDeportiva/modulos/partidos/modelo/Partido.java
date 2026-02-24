@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import java.time.format.DateTimeFormatter;
+
 import com.gestionDeportiva.modulos.deportes.modelo.Deporte;
 import com.gestionDeportiva.modulos.deportes.observer.IObserver;
 import com.gestionDeportiva.modulos.notificaciones.facade.FacadeNotificador;
@@ -119,7 +121,8 @@ public class Partido {
         this.comentarios = new ArrayList<>();
         this.estado = new EstadoEsperandoJugadores();
 
-        System.out.println("El partido de " + deporte.getNombre() + " ha sido creado por " + admin.getNombre() + " para el día " + fechaHoraInicio + " en la zona " + zona + ". Duración: " + duracionMinutos + " minutos. Nivel permitido: " + nvlMin.getValorNivel() + " a " + nvlMax.getValorNivel() + " con éxito.");
+        System.out.println("\n[SISTEMA] Nuevo partido creado con éxito:");
+        System.out.println(this.getInfo());
     }
 
     public void seleccionar(Jugador jugador) {
@@ -229,11 +232,12 @@ public class Partido {
     public void cambiarEstado(IEstadoPartido nuevoEstado) {
         this.estado = nuevoEstado;
 
-        String mensaje = "El estado del partido de " + this.deporte.getNombre() + 
-                     " ha cambiado a: " + nuevoEstado.nombre();
+        String mensaje ="AVISO DE CAMBIO DE ESTADO\n" +
+                     "El partido de " + this.deporte.getNombre() + " ahora está: " + nuevoEstado.nombre() + "\n" +
+                     this.getInfo();
         
         if (this.jugadores != null && !this.jugadores.isEmpty()) {
-            System.out.println("Notificando a los jugadores el cambio de estado...");
+            System.out.println("[NOTIFICACION] Enviando actualización de estado a los jugadores...");
             this.notificar(mensaje);
         }
     }
@@ -280,19 +284,20 @@ public class Partido {
         return duracionMinutos;
     }
 
-    public String getInfo(){
-        return "===== INFROMACIÓN DEL PARTIDO =====\n" +
-                "- Deporte: " + deporte.getNombre() + "\n" +
-                "- Duración: " + duracionMinutos + " minutos\n" +
-                "- Zona: " + zona + "\n" +
-                "- Fecha y hora: " + fechaHoraInicio + "\n" +
-                "- Nivel mínimo: " + nvlMin.getClass().getSimpleName() + "\n" +
-                "- Nivel máximo: " + nvlMax.getClass().getSimpleName() + "\n" +
-                "- Administrador: " + admin.getNombre() + "\n" +
-                "- Cantidad de jugadores anotados: " + jugadores.size() + "\n" +
-                "- Cantidad confirmados: " + confirmados.size() + "\n" +
-                "- Estado actual: " + estado.nombre() + "\n" +
-                "================================";
+    public String getInfo() {
+    // Definimos un formato legible: Día/Mes/Año Hora:Minutos
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        
+        return "\n===== INFORMACIÓN DEL PARTIDO =====\n" +
+            "  Deporte:      " + deporte.getNombre() + "\n" +
+            "  Organizador:  " + admin.getNombre() + "\n" +
+            "  Fecha y Hora: " + fechaHoraInicio.format(formatoFecha) + " hs\n" +
+            "  Zona:         " + zona + "\n" +
+            "  Duración:     " + duracionMinutos + " minutos\n" +
+            "  Niveles:      " + nvlMin.getName() + " hasta " + nvlMax.getName() + "\n" +
+            "  Inscritos:    " + jugadores.size() + " (" + confirmados.size() + " confirmados)\n" +
+            "  Estado:       " + estado.nombre() + "\n" +
+            "====================================";
     }
 
     public void registrarEnHistorial() {

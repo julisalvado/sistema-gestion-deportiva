@@ -1,11 +1,10 @@
-package com.gestionDeportiva.modulos.usuarios.strategies;
+package com.gestionDeportiva.modulos.partidos.strategies;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gestionDeportiva.modulos.partidos.partidoEstados.EstadoEsperandoJugadores;
 import com.gestionDeportiva.modulos.partidos.modelo.Partido;
-import com.gestionDeportiva.modulos.usuarios.interfaces.IStrategyEmparejamiento;
+import com.gestionDeportiva.modulos.partidos.partidoEstados.EstadoEsperandoJugadores;
 import com.gestionDeportiva.modulos.usuarios.modelo.Jugador;
 
 public class EmparejamientoPorNivel implements IStrategyEmparejamiento {
