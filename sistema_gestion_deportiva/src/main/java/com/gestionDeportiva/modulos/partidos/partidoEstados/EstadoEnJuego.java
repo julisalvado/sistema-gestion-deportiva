@@ -1,11 +1,11 @@
-package com.gestionDeportiva.modulos.notificaciones.partidoEstados;
+package com.gestionDeportiva.modulos.partidos.partidoEstados;
+
+import java.time.LocalDateTime;
 
 import com.gestionDeportiva.Partido;
 import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
 import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
-import com.gestionDeportiva.modulos.notificaciones.states.IEstadoPartido;
-
-import java.time.LocalDateTime;
+import com.gestionDeportiva.modulos.partidos.states.IEstadoPartido;
 
 public class EstadoEnJuego implements IEstadoPartido {
     @Override
@@ -17,6 +17,7 @@ public class EstadoEnJuego implements IEstadoPartido {
     public void seleccionar(Partido partido, Jugador jugador) {
         throw new IllegalStateException("No es posible seleciconar el partido, el mismo ya está en juego.");
     }
+
     @Override
     public void confirmarParticipacion(Partido partido, Jugador jugador) {
         throw new IllegalStateException("No es posible confirmar el partido, el mismo ya está en juego.");

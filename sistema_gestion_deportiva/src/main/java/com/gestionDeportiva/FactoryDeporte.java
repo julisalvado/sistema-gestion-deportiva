@@ -2,7 +2,7 @@ package com.gestionDeportiva;
 
 public class FactoryDeporte {
 
-    public Deporte crearDeporte(String tipo) {
+    public static Deporte crearDeporte(String tipo) {
         if (tipo == null || tipo.isBlank()) {
             throw new IllegalArgumentException("El tipo de deporte no puede ser nulo o vacío.");
         }
@@ -25,7 +25,7 @@ public class FactoryDeporte {
         }
     }
 
-    public Deporte crearDeporte(String tipo, int jugadoresNecesarios) {
+    /*public Deporte crearDeporte(String tipo, int jugadoresNecesarios) {
         if (jugadoresNecesarios <= 0) {
             throw new IllegalArgumentException("La cantidad de jugadores necesarios debe ser mayor a 0.");
         }
@@ -33,5 +33,5 @@ public class FactoryDeporte {
             throw new IllegalArgumentException("El tipo de deporte no puede ser nulo o vacío.");
         }
         return new Deporte(tipo.trim(), jugadoresNecesarios);
-    }
+    }*/
 }

@@ -1,14 +1,22 @@
 package com.gestionDeportiva;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+
+import com.gestionDeportiva.modulos.IObserver;
 import com.gestionDeportiva.modulos.Usuario.interfaces.IStrategyNivelJuego;
 import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
 import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
 import com.gestionDeportiva.modulos.Usuario.modelo.Usuario;
-import com.gestionDeportiva.modulos.notificaciones.partidoEstados.EstadoEsperandoJugadores;
-import com.gestionDeportiva.modulos.notificaciones.states.*;
-
-import java.time.LocalDateTime;
-import java.util.*;
+import com.gestionDeportiva.modulos.notificaciones.facade.FacadeNotificador;
+import com.gestionDeportiva.modulos.partidos.partidoEstados.EstadoEsperandoJugadores;
+import com.gestionDeportiva.modulos.partidos.states.IEstadoPartido;
 
 public class Partido {
 
@@ -282,5 +290,10 @@ public class Partido {
         for (Jugador jugador : jugadores) {
             jugador.agregarAlHistorial(this);
         }
+    }
+
+    public void notificar(String mensaje) {
+        FacadeNotificador fachada = new FacadeNotificador();
+        fachada.notificar((List<IObserver>) (List<?>) this.getJugadores(), mensaje);
     }
 }

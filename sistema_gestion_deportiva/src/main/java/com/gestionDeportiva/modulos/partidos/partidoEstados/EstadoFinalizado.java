@@ -1,11 +1,11 @@
-package com.gestionDeportiva.modulos.notificaciones.partidoEstados;
+package com.gestionDeportiva.modulos.partidos.partidoEstados;
+
+import java.time.LocalDateTime;
 
 import com.gestionDeportiva.Partido;
 import com.gestionDeportiva.modulos.Usuario.modelo.Administrador;
 import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
-import com.gestionDeportiva.modulos.notificaciones.states.IEstadoPartido;
-
-import java.time.LocalDateTime;
+import com.gestionDeportiva.modulos.partidos.states.IEstadoPartido;
 
 public class EstadoFinalizado implements IEstadoPartido {
     @Override
@@ -25,12 +25,11 @@ public class EstadoFinalizado implements IEstadoPartido {
 
     @Override
     public void cancelarPorAdmin(Partido partido, Administrador administrador) {
-        throw new IllegalStateException("El partido ya finalizó, no es posible cancelar el mismo.");
+        throw new IllegalStateException("No es posible cancelar el partido, el mismo ya está finalizado.");
     }
-
 
     @Override
     public void tick(Partido partido, LocalDateTime ahora) {
-        // No es necesario realizar ninguna acción en el metodo tick, ya que el partido ya ha finalizado.
+        throw new IllegalStateException("No es posible ejecutar el tick del partido, el mismo ya está finalizado.");
     }
 }
