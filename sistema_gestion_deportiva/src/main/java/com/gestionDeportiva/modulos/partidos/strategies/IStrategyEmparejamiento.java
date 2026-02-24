@@ -1,4 +1,4 @@
-package com.gestionDeportiva.modulos.usuarios.interfaces;
+package com.gestionDeportiva.modulos.partidos.strategies;
 
 import java.util.List;
 

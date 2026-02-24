@@ -1,9 +1,8 @@
-package com.gestionDeportiva.modulos.partidos;
+package com.gestionDeportiva.modulos.partidos.modelo;
 
 import java.util.List;
 
-import com.gestionDeportiva.modulos.partidos.modelo.Partido;
-import com.gestionDeportiva.modulos.usuarios.interfaces.IStrategyEmparejamiento;
+import com.gestionDeportiva.modulos.partidos.strategies.IStrategyEmparejamiento;
 import com.gestionDeportiva.modulos.usuarios.modelo.Jugador;
 
 public class BusquedaPartidos {
@@ -18,7 +17,7 @@ public class BusquedaPartidos {
             throw new IllegalArgumentException("La lista de partidos no debe estar vacia.");
         }
         else if(jugador == null){
-            throw new IllegalArgumentException("Debe haber un jugador para realizar la busqeuda");
+            throw new IllegalArgumentException("Debe haber un jugador para realizar la busqueda");
         }
         return estrategiaBusqueda.filtrar(jugador, partidos);
     }
