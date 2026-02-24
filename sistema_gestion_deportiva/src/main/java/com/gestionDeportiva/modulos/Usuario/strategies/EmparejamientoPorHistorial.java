@@ -6,6 +6,7 @@ import java.util.List;
 import com.gestionDeportiva.Partido;
 import com.gestionDeportiva.modulos.Usuario.interfaces.IStrategyEmparejamiento;
 import com.gestionDeportiva.modulos.Usuario.modelo.Jugador;
+import com.gestionDeportiva.modulos.notificaciones.partidoEstados.EstadoEsperandoJugadores;
 
 public class EmparejamientoPorHistorial implements IStrategyEmparejamiento {
 
@@ -27,12 +28,17 @@ public class EmparejamientoPorHistorial implements IStrategyEmparejamiento {
         List<Partido> otros = new ArrayList<>();
 
         for (Partido partido : partidosDisponibles) {
-            String nombreDeporteActual = partido.getDeporte().getNombre();
-            
-            if (nombresDeportesJugados.contains(nombreDeporteActual)) {
-                recomendados.add(partido);
-            } else {
-                otros.add(partido);
+            if (partido.getEstado() instanceof EstadoEsperandoJugadores &&
+                !partido.estaLleno() &&
+                !partido.getJugadores().contains(jugador)) {
+                
+                String nombreDeporteActual = partido.getDeporte().getNombre();
+                
+                if (nombresDeportesJugados.contains(nombreDeporteActual)) {
+                    recomendados.add(partido);
+                } else {
+                    otros.add(partido);
+                }
             }
         }
 

@@ -12,7 +12,7 @@ public class Jugador extends Usuario {
     private IStrategyNivelJuego nivelJuego;
 
     public Jugador(String nombre, String email, String contrasenia, String zona) {
-        super(nombre, email, contrasenia);// Llama al constructor de Usuario
+        super(nombre, email, contrasenia);
         this.zona = zona;
         this.historialPartidos = new HistorialPartidos();
     }
