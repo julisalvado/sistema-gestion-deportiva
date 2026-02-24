@@ -15,6 +15,7 @@ import com.gestionDeportiva.modulos.deportes.modelo.Deporte;
 import com.gestionDeportiva.modulos.deportes.observer.IObserver;
 import com.gestionDeportiva.modulos.notificaciones.facade.FacadeNotificador;
 import com.gestionDeportiva.modulos.partidos.partidoEstados.EstadoEsperandoJugadores;
+import com.gestionDeportiva.modulos.partidos.partidoEstados.EstadoFinalizado;
 import com.gestionDeportiva.modulos.partidos.states.IEstadoPartido;
 import com.gestionDeportiva.modulos.usuarios.interfaces.IStrategyNivelJuego;
 import com.gestionDeportiva.modulos.usuarios.modelo.Administrador;
@@ -169,7 +170,7 @@ public class Partido {
     }
 
     private boolean estaFinalizado() {
-        return estado.nombre().equals("Finalizado");
+        return estado instanceof EstadoFinalizado;
     }
 
     public void agregarComentario(Administrador admin, String contenido) {

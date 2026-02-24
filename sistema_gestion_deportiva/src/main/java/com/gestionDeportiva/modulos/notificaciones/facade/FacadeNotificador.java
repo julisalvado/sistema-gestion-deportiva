@@ -14,7 +14,6 @@ import com.gestionDeportiva.modulos.notificaciones.modelo.Notificador;
 public class FacadeNotificador {
 
     public void notificar(IObserver usuario, String mensaje) {
-        // Simplemente lo convertimos en una lista de uno y llamamos al otro método
         this.notificar(Collections.singletonList(usuario), mensaje);
     }
 

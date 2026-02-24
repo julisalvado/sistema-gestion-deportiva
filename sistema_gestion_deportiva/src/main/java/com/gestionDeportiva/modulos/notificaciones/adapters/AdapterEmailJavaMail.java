@@ -28,7 +28,6 @@ public class AdapterEmailJavaMail implements IAdapterNotificadorEmail{
                 throw new RuntimeException("Las llaves en config.properties no coinciden.");
             }
         } catch (IOException e) {
-            // ESTA LÍNEA TE VA A SALVAR: Te dice dónde espera Java que esté el archivo
             String rutaActual = new java.io.File(".").getAbsolutePath();
             System.err.println("CRÍTICO: No se encontró config.properties en: " + rutaActual);
         }
@@ -39,7 +38,6 @@ public class AdapterEmailJavaMail implements IAdapterNotificadorEmail{
     }
 
     public void enviarNotificacionEmail(String destino, String mensaje) {
-        // 1. Configuración del servidor SMTP
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -47,7 +45,6 @@ public class AdapterEmailJavaMail implements IAdapterNotificadorEmail{
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-        // 2. Crear la sesión
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -56,14 +53,12 @@ public class AdapterEmailJavaMail implements IAdapterNotificadorEmail{
         });
 
         try {
-            // 3. Construir el mensaje
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(remitente));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destino));
             message.setSubject("Notificación de Gestión Deportiva");
             message.setText(mensaje);
 
-            // 4. Envío real
             System.out.println("Enviando correo a " + destino + "...");
             Transport.send(message);
             System.out.println("¡Correo enviado con éxito!");

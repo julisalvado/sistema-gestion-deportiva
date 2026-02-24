@@ -20,4 +20,8 @@ public class HistorialPartidos {
     public List<Partido> obtenerPartidos() {
         return new ArrayList<>(partidos);
     }
+
+    public List<Partido> getPartidos() {
+        return partidos;
+    }
 }

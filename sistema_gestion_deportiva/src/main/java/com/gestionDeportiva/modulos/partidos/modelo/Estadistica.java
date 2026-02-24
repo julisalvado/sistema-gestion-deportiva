@@ -13,6 +13,9 @@ public class Estadistica {
     }
 
     public void definirMVP(Jugador jugador) {
+        if (jugador == null) {
+            throw new IllegalArgumentException("Jugador inválido para MVP.");
+        }
         this.mvp = jugador;
     }
 
@@ -26,5 +29,9 @@ public class Estadistica {
 
     public Jugador getMvp() {
         return mvp;
+    }
+
+    public void agregarExpulsion() {
+        expulsiones++;
     }
 }

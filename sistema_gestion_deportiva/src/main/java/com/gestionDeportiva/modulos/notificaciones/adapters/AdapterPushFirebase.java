@@ -2,8 +2,6 @@ package com.gestionDeportiva.modulos.notificaciones.adapters;
 
 import com.gestionDeportiva.modulos.notificaciones.interfaces.IAdapterNotificadorPush;
 
-//importar la clase adaptada
-
 public class AdapterPushFirebase implements IAdapterNotificadorPush {
 
     @Override
